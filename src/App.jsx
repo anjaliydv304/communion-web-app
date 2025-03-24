@@ -1,7 +1,41 @@
 import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import EventsPage from './pages/EventsPage';
+import Footer from './components/Footer';
 
+function App() {
+  return (
+    <Router>
+      <div className="min-h-screen bg-slate-50">
+        <header className="bg-slate-900 shadow-sm">
+          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div className="text-teal-600 font-bold text-xl"><a href='/'>Communion</a></div>
+            <nav>
+              <ul className="flex space-x-6">
+                <li><Link to="/" className="text-teal-500 hover:text-teal-600">Home</Link></li>
+                <li><Link to="/events" className="text-teal-500 hover:text-teal-600">Events</Link></li>
+                <li><Link to="/about" className="text-teal-500 hover:text-teal-600">About</Link></li>
+              </ul>
+            </nav>
+            <div>
+              <button className="bg-teal-700 text-white px-4 py-2 rounded-full text-sm cursor-pointer">Login</button>
+              <button className="ml-2 bg-teal-800 text-white px-4 py-2 rounded-full text-sm cursor-pointer">Work with us</button>
+            </div>
+          </div>
+        </header>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+        </Routes>
+        <Footer/>
+      </div>
+    </Router>
+  );
+}
 function AboutPage() {
   const controls = useAnimation();
   const [ref, inView] = useInView({
@@ -122,4 +156,4 @@ function AboutPage() {
   );
 }
 
-export default AboutPage;
+export default App;
